@@ -5,14 +5,29 @@ module.exports = sequelize => {
 
 		inv: {
 			type: DataTypes.INTEGER,
-			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true
 		},
 
 		titulo: {
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
+			allowNull: false,
 		},
 		
+		autor: {
+			type: DataTypes.STRING
+		},
+
+		editorial: {
+			type: DataTypes.STRING
+		},
+
+		año: {
+			type: DataTypes.INTEGER
+		},
+
+		tema: {
+			type: DataTypes.STRING
+		}
 	});
 };

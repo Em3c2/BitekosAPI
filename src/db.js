@@ -14,7 +14,7 @@ let modelDefiners = [           // <--------- Aqui hay que agregar nuevos modelo
 
 // setup a new database POSTGRESS
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASS}@${DB_HOST}/bitekosdb`, {
-  logging: true, 
+  logging: false, 
 });
 
 //Check
