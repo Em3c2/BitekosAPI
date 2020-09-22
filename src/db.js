@@ -3,17 +3,18 @@
 //Require
 require('dotenv').config();
 const express = require("express");
-const Sequelize = require("sequelize");
+const {Sequelize} = require("sequelize");
 const app = express();
-const {DB_USER, DB_PASSWORD, DB_HOST} = process.env;
+const {DB_USER, DB_PASS, DB_HOST} = process.env;
 
 //Models require
-const Libros = require("./models/libros.js");
-let modelDefiners = [Libros];   // <--------- Aqui hay que agregar nuevos modelos
+let modelDefiners = [           // <--------- Aqui hay que agregar nuevos modelos
+      require("./models/Libro.js")
+      ];  
 
 // setup a new database POSTGRESS
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/bitekosdb`, {
-  logging: false, 
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASS}@${DB_HOST}/bitekosdb`, {
+  logging: true, 
 });
 
 //Check
@@ -28,18 +29,21 @@ sequelize
 
 
 //Conect models
-
 modelDefiners.forEach(model => model(sequelize));
+
+// Captalize
+let entries = Object.entries(sequelize.models);
+let capsEntries = entries.map(entry => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
+sequelize.models = Object.fromEntries(capsEntries);
 
 // Relations
 
-
-
-
+//PRUEBA
+  let { Libro } = sequelize.models 
 
 //Export
 
 module.exports = {
-  ...sequelize.models,
+  Libro,
   conn: sequelize
 };
